@@ -1,0 +1,40 @@
+---
+title: "chp2_notes"
+author: "William Hall"
+date: "June 8, 2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Subseting
+
+## Data types
+
+###Atomic Vectors
+
+* There are six ways to subset an atomic vector
+
+```{r}
+x <- 10:20
+#positive numbers
+x[1:3]
+#negative numbers
+x[-c(2,1)]
+#logicals - uses recyclying
+x[c(T,T,F)]
+#nothing
+x[]
+#zereo
+x[0]
+#names
+(y <- setNames(x, letters[1:10]))
+y[c("a", "b", "c")]
+```
+
+
+###Lists
+
+
