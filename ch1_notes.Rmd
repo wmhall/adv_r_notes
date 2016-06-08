@@ -1,0 +1,165 @@
+---
+title: "ch1_notes"
+author: "William Hall"
+date: "June 7, 2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+```
+
+## Vectors
+
+### Exercises
+
+1) What are the six types of atomic vector? How does a list differ from an atomic vector?
+
+  * dbl, int, char, logical, complex, raw
+  * list can contain different types of atomic vectors. list have hierarchy. 
+
+2) What makes is.vector() and is.numeric() fundamentally different to is.list() and is.character()?
+
+  * is.vector() and is.numeric will return true for multiple different types of vectors. is.list() and is.character() will return true for only one type of vector. 
+
+3) Test your knowledge of vector coercion rules by predicting the output of the following uses of c():
+
+  * c(1, FALSE) > numeric 
+  * c("a", 1) > character
+  * c(list(1), "a") > list
+  * c(TRUE, 1L) > numeric
+
+    
+4) Why do you need to use unlist() to convert a list to an atomic vector? Why doesn’t as.vector() work?
+
+  * lists are vectors, and therefore as.vector() will not unlist a list 
+
+5) Why is 1 == "1" true? Why is -1 < FALSE true? Why is "one" < 2 false?
+
+  * 1 == "1" > the 1 gets converted to a character and thus the two vectors are equal.
+  * -1 < FALSE > FALSE gets converted to a zero, and therefore -1 < 0 is true. 
+  * "one" < 2 > 2 will get converted to a character and the comparison is based on char length?
+  
+  
+6) Why is the default missing value, NA, a logical vector? What’s special about logical vectors? (Hint: think about c(FALSE,NA_character_).)
+
+  * NA is logical because logical is lowest in the coercion hierarchy and therefor it will not result in other elements of the vectors getting coerced to something else.  
+
+##Attributes and Factors
+
+###Exercises
+
+1. An early draft used this code to illustrate structure():
+
+```{r}
+structure(1:5, comment = "my attribute")
+```
+
+But when you print that object you don’t see the comment attribute. Why? Is the attribute missing, or is there something else special about it? (Hint: try using help.)
+
+  * comment is a special attribute that is ignored by the print() function. 
+
+2. What happens to a factor when you modify its levels?
+
+```{r}
+f1 <- factor(letters)
+levels(f1) <- rev(levels(f1))
+```
+
+  * Modifying the levels changes the order in which the factor is displayed. 
+
+ 3. What does this code do? How do f2 and f3 differ from f1?
+
+```{r}
+f2 <- rev(factor(letters))
+f3 <- factor(letters, levels = rev(letters))
+
+```
+
+  * f2: levels remain unchanged but the order of the factor is reversed. i.e. the element in the vector have been reversed. 
+  * f3: the levels are changed but the elements in the vector remain unchanged. 
+
+##Matrices and Arrays
+
+###Notes
+
+  * Arrays and matrices can be created with array() and matrix()
+  * You also create a matrix with dim()
+
+```{r}
+x <- c(2,3,4,5)
+dim(x) <- c(2,2)
+x
+```
+
+   * Arrays can be n-dimmensional; matricies are two dimmensional. 
+  * cbind() and rbind() are extensions of c()
+  * t() lets you transpose a matrix. 
+  
+###Exercises
+
+1. What does dim() return when applied to a vector?
+
+```{r}
+dim(x)
+```
+
+dim() return the dimmensions of a vector. i.e. row and column lengths. 
+
+2. If is.matrix(x) is TRUE, what will is.array(x) return?
+
+```{r}
+is.matrix(x)
+is.array(x)
+```
+
+3. How would you describe the following three objects? What makes them different to 1:5?
+
+```{r}
+x1 <- array(1:5, c(1, 1, 5)) %>% str()
+x2 <- array(1:5, c(1, 5, 1)) %>% str()
+x3 <- array(1:5, c(5, 1, 1)) %>% str()
+```
+
+They are n-dimmensional arrays. 
+
+##Data frames
+
+  * Data frames have the type list because they are lists with the same length.
+  
+
+```{r}
+df <- data.frame(
+  x = 1:3,
+  y = c("a", "b", "c"),
+  stringsAsFactors = FALSE)
+
+typeof(df)
+```
+
+  * You can have a column that contains lists; this is because a data frame is of type list. 
+
+```{r}
+y <- list(c(1,2,3), c(5:9), c(10:12))
+df$y <- y
+```
+
+  * However, when you pass a list to data.frame() the list elements will be treated as columns and this will cause problems if the lists are different lengths. 
+  
+  
+```{r}
+data.frame(x = 1:3, y = list(1:3, 2:3, 9:13))
+```
+
+* You can use I() to overcome this problem and make the list be treated as one element.
+
+```{r}
+data.frame(x = 1:3, y = I(list(1:3, 2:3, 9:13)))
+```
+
+##Exercises
+
+
+
+
