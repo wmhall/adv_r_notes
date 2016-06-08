@@ -160,6 +160,33 @@ data.frame(x = 1:3, y = I(list(1:3, 2:3, 9:13)))
 
 ##Exercises
 
-1. 
+1. What attributes does a data frame possess?
 
+```{r}
+df <- data.frame(
+  x = 1:3,
+  y = c("a", "b", "c"),
+  stringsAsFactors = FALSE)
+
+attributes(df)
+```
+
+  * names, row names, and a class.
+
+2. What does as.matrix() do when applied to a data frame with columns of different types?
+
+```{r}
+as.matrix(df)
+```
+
+  * All of the columns are cocerced into characters. 
+
+3. Can you have a data frame with 0 rows? What about 0 columns?
+
+```{r}
+df <- data.frame()
+df
+```
+
+  * Yes!
 
