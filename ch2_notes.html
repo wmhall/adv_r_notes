@@ -335,6 +335,54 @@ x %&gt;%
 <li>sets NA values in a df to zero</li>
 </ul>
 </div>
+<div id="subsetting-operators" class="section level2">
+<h2>Subsetting operators</h2>
+<ul>
+<li>[[]] lets you pull single elements from a list</li>
+<li>$ is a shorthand for [[]]</li>
+<li>[[]] can be used to extract columsn from a data frame; this will return a vector and a data frame with one column</li>
+</ul>
+<pre class="r"><code>mtcars[[1]]</code></pre>
+<pre><code>##  [1] 21.0 21.0 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 17.8 16.4 17.3 15.2
+## [15] 10.4 10.4 14.7 32.4 30.4 33.9 21.5 15.5 15.2 13.3 19.2 27.3 26.0 30.4
+## [29] 15.8 19.7 15.0 21.4</code></pre>
+<div id="simplifying-and-preserving" class="section level3">
+<h3>Simplifying and preserving</h3>
+<ul>
+<li>simplifying means that what is returned by your subset is reduced to it’s simplest form, e.g. subseting one column of a data frame and returning a vector.</li>
+<li><p>preserving means that the structure (type?) of the object is maintained, e.g. subsetting a df and getting back a df.</p></li>
+<li>for vectors, simplifying means that your names are dropped from the vector.</li>
+<li>for lists, you get a vector back instead of a list.</li>
+<li><p>for factors, unused levels are dropped when you simplify.</p></li>
+</ul>
+<pre class="r"><code>x &lt;- factor(c(&quot;male&quot;, &quot;female&quot;))
+#preserving
+x[1]</code></pre>
+<pre><code>## [1] male
+## Levels: female male</code></pre>
+<pre class="r"><code>#simplifying
+x[1, drop = T]</code></pre>
+<pre><code>## [1] male
+## Levels: male</code></pre>
+</div>
+<div id="exercise" class="section level3">
+<h3>Exercise</h3>
+<ol style="list-style-type: decimal">
+<li>Given a linear model, e.g., mod &lt;- lm(mpg ~ wt, data = mtcars), extract the residual degrees of freedom. Extract the R squared from the model summary (summary(mod))</li>
+</ol>
+<pre class="r"><code>mod &lt;- lm(mpg ~ wt, data = mtcars)
+mod %&gt;% names</code></pre>
+<pre><code>##  [1] &quot;coefficients&quot;  &quot;residuals&quot;     &quot;effects&quot;       &quot;rank&quot;         
+##  [5] &quot;fitted.values&quot; &quot;assign&quot;        &quot;qr&quot;            &quot;df.residual&quot;  
+##  [9] &quot;xlevels&quot;       &quot;call&quot;          &quot;terms&quot;         &quot;model&quot;</code></pre>
+<pre class="r"><code>df_resid &lt;- mod$df.residual
+summary(mod) %&gt;% names</code></pre>
+<pre><code>##  [1] &quot;call&quot;          &quot;terms&quot;         &quot;residuals&quot;     &quot;coefficients&quot; 
+##  [5] &quot;aliased&quot;       &quot;sigma&quot;         &quot;df&quot;            &quot;r.squared&quot;    
+##  [9] &quot;adj.r.squared&quot; &quot;fstatistic&quot;    &quot;cov.unscaled&quot;</code></pre>
+<pre class="r"><code>r_sqrd &lt;- summary(mod)['r.squared']</code></pre>
+</div>
+</div>
 
 
 

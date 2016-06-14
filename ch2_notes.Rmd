@@ -146,3 +146,42 @@ df[is.na(df)] <- 0
 ```
 
 * sets NA values in a df to zero
+
+##Subsetting operators
+
+* [[]] lets you pull single elements from a list
+* $ is a shorthand for [[]]
+* [[]] can be used to extract columsn from a data frame; this will return a vector and a data frame with one column
+
+```{r}
+mtcars[[1]]
+```
+
+###Simplifying and preserving
+
+* simplifying means that what is returned by your subset is reduced to it's simplest form, e.g. subseting one column of a  data frame and returning a vector.
+* preserving means that the structure (type?) of the object is maintained, e.g. subsetting a df and getting back a df.
+
+* for vectors, simplifying means that your names are dropped from the vector.
+* for lists, you get a vector back instead of a list. 
+* for factors, unused levels are dropped when you simplify.
+
+```{r}
+x <- factor(c("male", "female"))
+#preserving
+x[1]
+#simplifying
+x[1, drop = T]
+```
+
+###Exercise
+
+1. Given a linear model, e.g., mod <- lm(mpg ~ wt, data = mtcars), extract the residual degrees of freedom. Extract the R squared from the model summary (summary(mod))
+
+```{r}
+mod <- lm(mpg ~ wt, data = mtcars)
+mod %>% names
+df_resid <- mod$df.residual
+summary(mod) %>% names
+r_sqrd <- summary(mod)['r.squared']
+```
