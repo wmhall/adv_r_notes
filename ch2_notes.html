@@ -383,6 +383,51 @@ summary(mod) %&gt;% names</code></pre>
 <pre class="r"><code>r_sqrd &lt;- summary(mod)['r.squared']</code></pre>
 </div>
 </div>
+<div id="subsetting-and-assignment" class="section level2">
+<h2>Subsetting and assignment</h2>
+<ul>
+<li><p>subsetting can be used to assign values to vectors.</p></li>
+<li><p>subsetting doesn’t check for duplicates and uses rycling</p></li>
+</ul>
+<pre class="r"><code>x &lt;- c(1:5)
+x[c(1,1)] &lt;- 2:3
+
+#the below won't work but shows that r is using recycling.
+#x[c(1,1)] &lt;- 2:4</code></pre>
+<ul>
+<li>subsetting nothing can be useful as it allows you to preserve the original object class and structure.</li>
+</ul>
+<pre class="r"><code>#will preserve the original object class
+mtcars[] &lt;- lapply(mtcars, as.integer)
+
+#does not perserve the original object class
+mtcars &lt;- lapply(mtcars, as.integer)
+
+mtcars[] &lt;- purrr::map(mtcars, as.integer)</code></pre>
+<ul>
+<li>you can remove elements of a list by subsetting it and assigning it to NULL.</li>
+</ul>
+<pre class="r"><code>z &lt;- 
+list(a =1:2, b = 3:10)
+
+z[&quot;b&quot;] &lt;- NULL</code></pre>
+<ul>
+<li>list(NULL) gives you an actual list that has a value of NULL.</li>
+</ul>
+</div>
+<div id="applications-of-subsetting" class="section level2">
+<h2>Applications of subsetting</h2>
+<div id="loookup-tables" class="section level3">
+<h3>Loookup tables</h3>
+<pre class="r"><code>x &lt;- c(&quot;m&quot;, &quot;f&quot;, &quot;u&quot;, &quot;f&quot;, &quot;f&quot;, &quot;m&quot;, &quot;m&quot;)
+lookup &lt;- c(m = &quot;male&quot;, f = &quot;female&quot;)
+lookup[x]</code></pre>
+<pre><code>##        m        f     &lt;NA&gt;        f        f        m        m 
+##   &quot;male&quot; &quot;female&quot;       NA &quot;female&quot; &quot;female&quot;   &quot;male&quot;   &quot;male&quot;</code></pre>
+<pre class="r"><code>unname(lookup[x])</code></pre>
+<pre><code>## [1] &quot;male&quot;   &quot;female&quot; NA       &quot;female&quot; &quot;female&quot; &quot;male&quot;   &quot;male&quot;</code></pre>
+</div>
+</div>
 
 
 

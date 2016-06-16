@@ -185,3 +185,53 @@ df_resid <- mod$df.residual
 summary(mod) %>% names
 r_sqrd <- summary(mod)['r.squared']
 ```
+
+##Subsetting and assignment
+
+* subsetting can be used to assign values to vectors.
+
+* subsetting doesn't check for duplicates and uses rycling
+```{r}
+x <- c(1:5)
+x[c(1,1)] <- 2:3
+
+#the below won't work but shows that r is using recycling.
+#x[c(1,1)] <- 2:4
+```
+
+* subsetting nothing can be useful as it allows you to preserve the original object class and structure. 
+
+```{r}
+#will preserve the original object class
+mtcars[] <- lapply(mtcars, as.integer)
+
+#does not perserve the original object class
+mtcars <- lapply(mtcars, as.integer)
+
+mtcars[] <- purrr::map(mtcars, as.integer)
+
+```
+
+* you can remove elements of a list by subsetting it and assigning it to NULL.
+
+```{r}
+z <- 
+list(a =1:2, b = 3:10)
+
+z["b"] <- NULL
+
+```
+
+* list(NULL) gives you an actual list that has a value of NULL.
+
+##Applications of subsetting
+
+###Loookup tables
+
+```{r}
+x <- c("m", "f", "u", "f", "f", "m", "m")
+lookup <- c(m = "male", f = "female")
+lookup[x]
+unname(lookup[x])
+```
+
