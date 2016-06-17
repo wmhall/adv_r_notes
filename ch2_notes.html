@@ -427,6 +427,108 @@ lookup[x]</code></pre>
 <pre class="r"><code>unname(lookup[x])</code></pre>
 <pre><code>## [1] &quot;male&quot;   &quot;female&quot; NA       &quot;female&quot; &quot;female&quot; &quot;male&quot;   &quot;male&quot;</code></pre>
 </div>
+<div id="random-smaplesbootstrap" class="section level3">
+<h3>Random smaples/bootstrap</h3>
+<pre class="r"><code>df &lt;- data.frame(x = rep(1:3, each = 2), y = 6:1, z = letters[1:6])
+
+set.seed(10)
+
+df[sample(nrow(df)),]</code></pre>
+<pre><code>##   x y z
+## 4 2 3 d
+## 2 1 5 b
+## 5 3 2 e
+## 3 2 4 c
+## 1 1 6 a
+## 6 3 1 f</code></pre>
+<pre class="r"><code>#bootstrap
+
+df[sample(nrow(df), 3, replace =T), ]</code></pre>
+<pre><code>##     x y z
+## 2   1 5 b
+## 2.1 1 5 b
+## 4   2 3 d</code></pre>
+</div>
+<div id="ordering" class="section level3">
+<h3>Ordering</h3>
+<pre class="r"><code>x &lt;- c(&quot;b&quot;, &quot;c&quot;, &quot;a&quot;)
+order(x)</code></pre>
+<pre><code>## [1] 3 1 2</code></pre>
+<pre class="r"><code>x[order(x)]</code></pre>
+<pre><code>## [1] &quot;a&quot; &quot;b&quot; &quot;c&quot;</code></pre>
+</div>
+<div id="expanding-aggregated-counts" class="section level3">
+<h3>Expanding aggregated counts</h3>
+<pre class="r"><code>df &lt;- data.frame(x = c(2, 4, 1), y = c(9, 11, 6), n = c(3, 5, 1))
+
+rep(1:nrow(df), df$n)</code></pre>
+<pre><code>## [1] 1 1 1 2 2 2 2 2 3</code></pre>
+<pre class="r"><code>df[rep(1:nrow(df), df$n),]</code></pre>
+<pre><code>##     x  y n
+## 1   2  9 3
+## 1.1 2  9 3
+## 1.2 2  9 3
+## 2   4 11 5
+## 2.1 4 11 5
+## 2.2 4 11 5
+## 2.3 4 11 5
+## 2.4 4 11 5
+## 3   1  6 1</code></pre>
+</div>
+<div id="removing-columns-from-a-dataframe" class="section level3">
+<h3>Removing columns from a dataframe</h3>
+<pre class="r"><code>df &lt;- data.frame(x = 1:3, y = 3:1, z = letters[1:3])
+
+df[setdiff(names(df), &quot;z&quot;)]</code></pre>
+<pre><code>##   x y
+## 1 1 3
+## 2 2 2
+## 3 3 1</code></pre>
+</div>
+</div>
+<div id="boolean-operators" class="section level1">
+<h1>Boolean operators</h1>
+<ul>
+<li>De Morgan’s laws:</li>
+<li>!(X &amp; Y) == !X | !Y</li>
+<li><p>!(X|Y) == !X &amp; !Y</p></li>
+<li><p>Boolean vs. integer selection</p></li>
+</ul>
+<pre class="r"><code>x1 &lt;- 1:10 %% 2 == 0
+x2 &lt;- which(x1)
+
+#%% modulus operator</code></pre>
+<div id="exercises" class="section level2">
+<h2>Exercises</h2>
+<ol style="list-style-type: decimal">
+<li>How would you randomly permute the columns of a data frame? (This is an important technique in random forests.) Can you simultaneously permute the rows and columns in one step?</li>
+</ol>
+<pre class="r"><code>df[, sample(ncol(df))]</code></pre>
+<pre><code>##   y z x
+## 1 3 a 1
+## 2 2 b 2
+## 3 1 c 3</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>How would you select a random sample of m rows from a data frame? What if the sample had to be contiguous (i.e., with an initial row, a final row, and every row in between)?</li>
+</ol>
+<pre class="r"><code>m &lt;- 2
+df[sample(nrow(df), m),]</code></pre>
+<pre><code>##   x y z
+## 1 1 3 a
+## 2 2 2 b</code></pre>
+<pre class="r"><code>#contigious rows
+set.seed(10)
+
+x &lt;- 2
+y &lt;- 10
+df1 &lt;- mtcars
+#df1[c(x, y, sample((x+1) :(y-1))), ]</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>How could you put the columns in a data frame in alphabetical order?</li>
+</ol>
+<pre class="r"><code>df2 &lt;- mtcars
+#df2[,names(df2)[order(names(df2))]]</code></pre>
+</div>
 </div>
 
 
