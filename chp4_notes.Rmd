@@ -1,0 +1,17 @@
+---
+title: "chp4_notes"
+author: "William Hall"
+date: "June 19, 2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Style guide
+
+* The opening curly brace should never be on a newline, and the closing curly brace should alway be on a new line. 
+
+
+

@@ -1,0 +1,14 @@
+---
+title: "chp3_notes"
+author: "William Hall"
+date: "June 19, 2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Useful functions
+
+* Chapter 3 is a list of useful function, and there are no exercises. 
